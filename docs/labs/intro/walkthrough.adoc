@@ -30,9 +30,15 @@ For illustration purposes the picture below shows what the integration end to en
 
 image::images/00-demo-end2end.png[align="center", width=90%]
 
-The Camel route definition would define the entire end to end processing logic, which you can find in your project explorer here:
+The Camel source definition would define the entire end to end processing logic, which you can find in your project explorer here:
 
+image::images/00-camel-routes.png[align="left", width=40%]
 
+Click on the Camel source file to display it in your code editor.
+
+Pending content...
+
+{empty} +
 
 [time=3]
 [id="terminal-stub"]

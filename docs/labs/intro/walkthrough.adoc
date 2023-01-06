@@ -142,7 +142,7 @@ Copy and paste the following command in your terminal to place yourself in the m
 +
 [source, subs=]
 ----
-cd /projects/testche/level1simple/<br>
+cd /projects/devsandbox-camel-sb-simple/level1simple/<br>
 ----
 +
 {blank}

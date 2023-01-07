@@ -238,6 +238,14 @@ image::images/06-terminal-systems-stopped.png[align="left", width=100%]
 +
 Make sure your CLI `oc` client (OpenShift client) points to your Developer Sandbox namespace:
 +
+test1: {openshift-host}
++ 
+test2: {user-username}
++
+test3: {openshift-app-host}
++
+test4: {username} 
++
 [source, subs=]
 ----
 oc projects -q | xargs oc project<br>

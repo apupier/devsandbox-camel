@@ -17,6 +17,10 @@ Explore, build, test and deploy a Camel Spring Boot demo application using the D
 
 This hands-on lab is based on the following blog article in Red Hat Developers:
 
+* link:http://developers.redhat.com/pending[window="_blank", , id="rhd-source-article"]
+
+{empty} +
+
 Assuming you have followed the article's instructions, you should be all set to get hands-on with _Camel Spring Boot_ in the _OpenShift Dev Spaces_ workspace.
 
 For illustration purposes the picture below shows what the integration end-to-end flow looks like.

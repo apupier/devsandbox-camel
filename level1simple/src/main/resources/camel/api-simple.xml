@@ -8,8 +8,8 @@
             http://camel.apache.org/schema/spring/camel-spring.xsd">
 
 
-	<!-- Write your routes here, for example: -->
-    <route id="xml">
+    <!-- MAIN -->
+    <route id="getDetails">
       <from uri="direct:getDetails"/>
 
       <!-- REQUEST TRANSFORMATION -->

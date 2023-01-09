@@ -19,24 +19,50 @@ This hands-on lab is based on the following blog article in Red Hat Developers:
 
 Assuming you have followed the article's instructions, you should be all ready to get hands-on with Camel Spring Boot in the OpenShift Dev Spaces workspace.
 
+For illustration purposes the picture below shows what the integration end-to-end flow looks like.
+
+image::images/00-demo-end2end.png[align="center", width=80%]
+
+A client invokes an OpenApi service. A Camel route attends the call, translates the JSON input into XML and calls a backend service to obtain an XML response, then it's translated back to JSON before responding to the original service call.
+
 {empty} +
 
 
-[time=2]
+[time=1]
 [id="explore-code"]
 == Explore the source code
 
-For illustration purposes the picture below shows what the integration end to end flow looks like.
+The _Camel_ source file `api-simple.xml` defines the entire end-to-end processing logic, which you can find in your project explorer under the path:
 
-image::images/00-demo-end2end.png[align="center", width=90%]
-
-The Camel source definition would define the entire end to end processing logic, which you can find in your project explorer here:
-
-image::images/00-camel-routes.png[align="left", width=40%]
-
+--
+* `level1simple/src/main/resources/camel/api-simple.xml`
++
+image::images/00-camel-routes.png[align="left", width=30%]
++
+{blank}
++
 Click on the Camel source file to display it in your code editor.
+--
 
-Pending content...
+{empty} +
+
+Inside the Camel source you'll see the main route definition:
+
+image::images/00-camel-main.png[align="left", width=50%]
+
+{blank}
+
+The key processing actions are:
+
+. Performs the JSON to XML transformation
+. Invokes the backend service
+. Transforms the XML response into JSON
+
+{blank}
+
+The code above is written using the XML DSL (_Domain Specific Language_), but Camel also provides a Java DSL and a YAML DSLs.
+
+Feel free to explore other regions of the code and project if feeling curious about the entire implementation.
 
 {empty} +
 
@@ -238,14 +264,6 @@ image::images/06-terminal-systems-stopped.png[align="left", width=100%]
 +
 Make sure your CLI `oc` client (OpenShift client) points to your Developer Sandbox namespace:
 +
-test1: {openshift-host}
-+ 
-test2: {user-username}
-+
-test3: {openshift-app-host}
-+
-test4: {username} 
-+
 [source, subs=]
 ----
 oc projects -q | xargs oc project<br>
@@ -360,7 +378,7 @@ image::images/08-topology-service-stub.png[align="left", width=50%]
 +
 . Test the service
 +
-Copy/paste the following cURL command to obtain a response from the stub:
+Copy/paste the following cURL command to obtain a response from the `simple` service:
 +
 [source, subs=]
 ----
@@ -370,7 +388,7 @@ curl -s \
 http://simple:8080/camel/subscriber/details | jq<br>
 ----
 +
-NOTE: The cURL command above now points to the newly deployed pod, with its service `simple` listening on port 8080.
+NOTE: The cURL command above now points to the newly deployed pod's _Kubernetes_ service `simple`, listening on port 8080.
 +
 NOTE: The command also includes a pipe to parse and colorise the JSON output for better reading.
 +
@@ -389,30 +407,40 @@ The invocation should return an XML payload similar to:
 +
 {empty} +
 +
-. Invoke an external service call
+. Invoke the service as an external client
 +
-Notice the previous cURL command uses an internal service URL, which is not directly accessible by external consumers. However, the deployment process automatically creates a route in OpenShift that exposes the service to external consumers.
+Notice the previous cURL command uses an internal service URL, which is not directly accessible by external consumers. However, the deployment automatically creates a route in OpenShift that exposes the service to external clients.
 +
-You can obtain the route details with the following command and use its URL from your favorite local HTTP client/tester, like podman or others.
+You can obtain the route details with the following command and use its URL from your favourite local HTTP client/tester, like _Postman_, _Swagger_ or others.
 +
 [source, subs=]
 ----
 oc get route simple<br>
 ----
 +
-Copy/paste the following cURL command to obtain a response from the stub:
+{blank}
++
+Embedding the `oc get route` command in a cURL allows you to invoke the service as an external consumer.
++
+--
+* Copy/paste the following cURL to obtain the service _OpenAPI_ definition: 
++
+[source, subs=]
+----
+curl -s http://`oc get route simple -o jsonpath={.spec.host}`/camel/openapi.json | jq<br>
+----
++
+{blank}
++
+* Copy/paste the following cURL command to simulate an external call and obtain a response from the _Camel_ service:
 +
 [source, subs=]
 ----
 curl -s \
 -H "content-type: application/json" \
 -d '{"id":"123"}' \
-http://simple:8080/camel/subscriber/details | jq<br>
+http://`oc get route simple -o jsonpath={.spec.host}`/camel/subscriber/details | jq<br>
 ----
-+
-NOTE: The cURL command above now points to the newly deployed pod, with its service `simple` listening on port 8080.
-+
-NOTE: The command also includes a pipe to parse and colorise the JSON output for better reading.
 +
 {blank}
 +
@@ -426,6 +454,8 @@ The invocation should return an XML payload similar to:
   "addressLine3": "UK"
 }
 ----
++
+--
 
 {empty} +
 
@@ -433,8 +463,22 @@ The invocation should return an XML payload similar to:
 Did you obtain the same JSON response as above shown?
 
 [type=verificationSuccess]
-You've successfully tested the simple service deployed in the sandbox !!
+You've successfully invoked the simple service as an external client !!
 
 [type=verificationFail]
 Inspect in stub logs to investigate possible failure causes.
 
+{empty} +
+
+=== Clean up your namespace
+
+When you're done playing in your _Developer Sandbox_, you can clean up your Sandbox namespace by un-deploying your Camel `simple` service and stub `end1` using the following _Maven_ `oc:undeploy` command for both:
+
+[source, subs=]
+----
+mvn oc:undeploy -Popenshift -s configuration/settings.xml<br>
+----
+
+{blank}
+
+Executing the command above for both services should leave your topology view clean from routes, services, and other Kubernetes artifacts in your namespace.

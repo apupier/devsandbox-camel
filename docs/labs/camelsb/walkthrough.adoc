@@ -35,7 +35,7 @@ A client invokes an OpenApi service. A Camel route attends the call, translates 
 The _Camel_ source file `api-simple.xml` defines the entire end-to-end processing logic, which you can find in your project explorer under the path:
 
 --
-* `level1simple/src/main/resources/camel/api-simple.xml`
+* `camelsb/level1simple/src/main/resources/camel/api-simple.xml`
 +
 image::images/00-camel-routes.png[align="left", width=30%]
 +
@@ -86,7 +86,7 @@ Copy and paste the following command in your terminal to place yourself in the s
 +
 [source, subs=]
 ----
-cd stubs/end1<br>
+cd camelsb/stubs/end1<br>
 ----
 +
 {blank}
@@ -174,7 +174,7 @@ Copy and paste the following command in your terminal to place yourself in the m
 +
 [source, subs=]
 ----
-cd /projects/devsandbox-camel-sb-simple/level1simple/<br>
+cd /projects/devsandbox-camel/camelsb/level1simple/<br>
 ----
 +
 {blank}

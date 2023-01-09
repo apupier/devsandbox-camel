@@ -9,7 +9,7 @@
 
 
     <!-- MAIN -->
-    <route id="getDetails">
+    <route id="main">
       <from uri="direct:getDetails"/>
 
       <!-- REQUEST TRANSFORMATION -->

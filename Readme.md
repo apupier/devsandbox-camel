@@ -1,11 +1,19 @@
-# Camel on Spring Boot - Simple Demo
+# Developer Sandbox Camel Labs
 
 ## Introduction
 
-This hands-on lab is based on the following blog article in Red Hat Developers:
+This repository contains a collection of labs to run in the Developer Sandbox, a free to use OpenShift environment, where users can follow guided instructions to fully cover the material in a fully remote development platform.
 
-Pending...
 
-Assuming you have followed the article's instructions, you should be all set to get hands-on with Camel Spring Boot in the OpenShift Dev Spaces workspace.
+## Available labs
+
+The table below collects the labs currently available and the articles in Red Hat Developers they're based on.
+
+Follow the link to the article to run the lab you're interested in.
+
+|            Lab Name           | Article |   |   |
+|:-----------------------------:|:-------:|:-:|:-:|
+| Camel on Spring Boot - Simple | http:// |   |   |
+|            Pending            | pending |   |   |
 
 <br/>

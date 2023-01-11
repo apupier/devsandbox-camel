@@ -266,14 +266,14 @@ image::images/06-terminal-systems-stopped.png[align="left", width=100%]
 +
 . Deploy the stub
 +
-Make sure your CLI `oc` client (OpenShift client) points to your Developer Sandbox namespace:
+Make sure your CLI `oc` client (_OpenShift_ client) points to your _Developer Sandbox_ project (aka namespace):
 +
 [source, subs=]
 ----
 oc projects -q | xargs oc project<br>
 ----
 +
-NOTE: The Developer Sandbox only ollows 1 namespace per user.
+NOTE: The _Developer Sandbox_ only allows 1 project (namespace) per user.
 +
 The command above should output something similar to:
 +

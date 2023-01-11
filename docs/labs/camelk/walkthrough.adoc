@@ -12,11 +12,9 @@ ifdef::env-github[]
 endif::[]
 
 [id='lab-intro']
-= Camel K - First Steps
+= Camel K - User Demo
 
-(UNDER CONSTRUCTION)
-
-Walk your first steps with Camel K by creating and running your first integration service 
+Walk your first steps with Camel K by creating and running your first integration service that integrates with a legacy backend.
 
 This hands-on lab is based on the following blog article in Red Hat Developers:
 
@@ -29,7 +27,7 @@ Assuming you have followed the article's instructions, you should be all set to 
 {empty} +
 
 
-[time=1]
+[time=2]
 [id="preparations"]
 == Lab Preparations
 
@@ -95,7 +93,7 @@ You're now all set and ready start riding the _Camel_.
 {empty} +
 
 
-[time=5]
+[time=8]
 [id="development"]
 == Development Phase
 
@@ -109,12 +107,12 @@ To swiftly create a skeleton _Camel_ route definition, we can use the `kamel` cl
 +
 [source, subs=]
 ----
-kamel init user.xml
+kamel init user.xml<br>
 ----
 +
 {blank}
 +
-The above command initialises an XML Camel definition. Camel also supports other languages like Java, YAML, and others.
+The above command initialises an XML Camel definition. Camel also supports languages like Java, YAML, and others.
 +
 {empty} +
 
@@ -357,7 +355,7 @@ You're ready to step to the next chapter !!
 You can try running `oc delete integration user` to force deleting the pod.
 
 
-[time=5]
+[time=4]
 [id="deploy-integration"]
 == Deploy your integration
 

@@ -41,7 +41,7 @@ You'll be making live code changes which _Camel K_ can pick up in real time. You
 +
 image::images/autosave.png[align="left", width=30%]
 +
-WARNING: The auto-save option in the menu does not show when it's active/inactive. The editor's file tab with show a white dot `⭘` if changes are unsaved, that will indicate auto-save is OFF.
+WARNING: The auto-save option in the menu does not always show when it's active/inactive. If you see in your editor's file tab a permanent white dot `⭘` when you make changes, it means auto-save is OFF.
 +
 {empty} +
 

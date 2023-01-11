@@ -12,10 +12,10 @@ The table below collects the labs currently available and the articles in Red Ha
 
 Follow the link to the article to run the lab you're interested in.
 
-|            Lab Name           | Article |
-|:-----------------------------:|:-------:|
-| Camel on Spring Boot - Simple | http:// |
-|            Pending            | pending |
+|            Lab Name             | Article | Preview in GitHub |
+|:--------------------------------|:-------:|:-----------------:|
+| Camel Spring Boot - Simple Demo | http:// | [preview](docs/labs/camelsb/walkthrough.adoc)
+| Camel K = User Demo             | pending | [preview](docs/labs/camelk/walkthrough.adoc)
 
 <br/>
 

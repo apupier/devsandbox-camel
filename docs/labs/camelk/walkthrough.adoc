@@ -341,7 +341,7 @@ Inspect the logs to investigate possible failure causes.
 Consider the development phase done. +
 Press kbd:[ctrl+c] to stop your Camel K instance.
 
-When stopped, you'll notice the pod in your Developer Sandbox disappear:
+When stopped, you'll notice the pod in your _Developer Sandbox_ disappear:
 
 image::images/pod-user-deleted.png[align="left", width=60%]
 
@@ -363,7 +363,7 @@ You can try running `oc delete integration user` to force deleting the pod.
 
 Running the `kamel` client with the `--dev` flag (dev mode) showed you in the previous chapter how to hook your terminal with the running pod  (dev mode) in the _Developer Sandbox_. Now you will deploy your integration detached from your IDE.
 
-. Launch the deployment command
+. Execute the deployment command
 +
 All it takes to deploy your integration is to remove the `--dev` flag. +
 Copy and paste the command below to push the integration to the _Developer Sandbox_:
@@ -460,6 +460,8 @@ Run the following command to expose the service:
 ----
 oc expose service user<br>
 ----
++
+{blank}
 +
 You can notice right away, from your topology view, your pod now showing a small icon to open the URL exposed by the service:
 +

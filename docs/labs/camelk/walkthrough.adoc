@@ -332,7 +332,7 @@ Did you obtain the a JSON response similar to the one shown above?
 You've successfully tested your Camel K HTTP service !!
 
 [type=verificationFail]
-Inspect the logs to investigate possible failure causes.
+Inspect the logs to investigate possible causes of failure.
 
 {empty} +
 

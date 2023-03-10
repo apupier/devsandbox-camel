@@ -353,7 +353,7 @@ image::images/pod-user-deleted.png[align="left", width=60%]
 {empty} +
 
 [type=verification]
-Did you see your `user` pod missing?
+Did you see your `user` pod deleted?
 
 [type=verificationSuccess]
 You're ready to step to the next chapter !!

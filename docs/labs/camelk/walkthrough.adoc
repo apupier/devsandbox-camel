@@ -558,3 +558,15 @@ Make sure you also delete the route you created manually:
 oc delete route user<br>
 ----
 
+{empty} +
+
+[type=verification]
+Did you clean your sandbox project with the instructions above?
+
+[type=verificationSuccess]
+Well done !! Your namespace should be clean and ready for your next project.
+
+[type=verificationFail]
+Make sure your route was deleted, and your Camel K integration was removed.
+
+{empty} +

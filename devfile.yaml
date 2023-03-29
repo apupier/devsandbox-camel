@@ -1,10 +1,10 @@
-schemaVersion: 2.1.0
+schemaVersion: 2.2.0
 metadata:
   name: devsandbox-camel-labs
 components:
   - name: tools
     container:
-      image: quay.io/devfile/universal-developer-image:ubi8-0e189d9
+      image: quay.io/devfile/universal-developer-image:ubi8-latest
       memoryLimit: 3Gi
       endpoints:
         - exposure: none

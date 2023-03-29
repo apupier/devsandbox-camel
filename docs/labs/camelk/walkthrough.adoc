@@ -463,7 +463,7 @@ Run the following command to expose the service:
 +
 [source, subs=]
 ----
-oc expose service user<br>
+oc expose service user --path=/user<br>
 ----
 +
 {blank}
@@ -474,7 +474,7 @@ image::images/pod-user-route.png[align="left", width=25%]
 +
 Click on it.
 +
-Your browser will render a “Resource not found” message at first. Make sure your address bar uses HTTP (not HTTPS), and you include the service path ‘/user’ at the end of the URL, something similar to:
+If your browser renders “Resource not found” or another error message, make sure your address bar uses HTTP (not HTTPS), and you include the service path ‘/user’ at the end of the URL, something similar to:
 +
 --
 * `**http://**…(long address value here)...**/user**`

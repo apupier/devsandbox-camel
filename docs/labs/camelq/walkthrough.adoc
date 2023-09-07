@@ -60,15 +60,20 @@ image::images/00-camel-main.png[align="left", width=50%]
 
 The key processing actions are:
 
-. Performs the JSON to SOAP transformation
-. Invokes the backend service
-. Transforms the SOAP response into JSON
+. Performs the JSON to SOAP transformation.
+. Invokes the SOAP backend service.
+. Transforms the SOAP response into JSON.
 
 {blank}
 
 The code above is written using the XML DSL (_Domain Specific Language_), but _Camel_ also provides a Java DSL and a YAML DSL.
 
-Feel free to explore other regions of the code and project if you are curious about the entire implementation.
+Feel free to explore other regions of the code and project if you are curious about the entire implementation. Interesting key areas of the code are:
+
+* OpenApi definition in the `openapi.json` resource.
+* WSDL definition to declare the SOAP service.
+* CXF endpoint definition in the `Routes.java` source file.
+* 2-way JSON/SOAP transformations using XSLT definitions.
 
 {empty} +
 
@@ -126,11 +131,10 @@ Copy/paste the following cURL command to obtain a response from the stub:
 +
 [source, subs=]
 ----
-curl http://localhost:9000/services/s1 -d @src/main/resources/request.xml
-
 curl -s \
 -d @src/main/resources/request.xml \
 http://localhost:9000/services/s1 \
+| xmllint --format - \
 | bat -pP -lxml<br>
 ----
 +
@@ -141,23 +145,28 @@ NOTE: The command also includes a pipe to colorize the XML output for better rea
 The invocation should return an XML payload similar to:
 +
 ----
-<Individual>
-    <Name>Some</Name>
-    <Surname>One</Surname>
-    <Address>
+<?xml version="1.0"?>
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Body>
+    <ns2:SubscriberResponse xmlns:ns2="http://www.example.org/s1/">
+      <Name>Some</Name>
+      <Surname>One</Surname>
+      <Address>
         <Number>1</Number>
         <Street>Some Street</Street>
         <City>Somewhere</City>
         <PostCode>SOME C0D3</PostCode>
         <Country>UK</Country>
-    </Address>
-</Individual>
+      </Address>
+    </ns2:SubscriberResponse>
+  </soap:Body>
+</soap:Envelope>
 ----
 
 {empty} +
 
 [type=verification]
-Did you obtain the same XML message as shown above?
+Did you obtain the same SOAP message as shown above?
 
 [type=verificationSuccess]
 You've successfully tested the stub !!

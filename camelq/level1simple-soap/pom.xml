@@ -269,8 +269,6 @@
                       <outputDirectory>${project.build.directory}/classes/routes/</outputDirectory>
                   </configuration>
               </execution>
-
-
               <execution>
                   <id>dev-mode</id>
                   <phase>generate-sources</phase>
@@ -283,56 +281,8 @@
                       <outputDirectory>${project.build.directory}/generated/routes/</outputDirectory>
                   </configuration>
               </execution>
-
           </executions>
       </plugin>
-
-      <!-- 
-      To enable API-first approach:
-      This plugin auto-generates the Camel REST-DSL definition
-      Camel loads it from the classpath -->
-<!--       <plugin>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>camel-restdsl-openapi-plugin</artifactId>
-          <version>3.21.0</version>
-          <executions>
-              <execution>
-                  <id>simple</id>
-                  <phase>generate-sources</phase>
-                  <goals>
-                      <goal>generate-xml</goal>
-                  </goals>
-                  <configuration>
-                      <specificationUri>src/main/resources/META-INF/openapi.json</specificationUri>
-                      <restConfiguration>false</restConfiguration>
-                      <outputDirectory>${project.build.directory}/generated/routes/</outputDirectory>
-                  </configuration>
-              </execution>
-          </executions>
-      </plugin> -->
-
-<!--       <plugin>
-        <groupId>org.apache.cxf</groupId>
-        <artifactId>cxf-codegen-plugin</artifactId>
-        <version>${cxf.version}</version>
-        <executions>
-            <execution>
-                <id>generate-sources</id>
-                <phase>generate-sources</phase>
-                <configuration>
-
-
-              <sourceRoot>${basedir}/target/generated/src/main/java</sourceRoot>
-              <wsdlRoot>${basedir}/src/main/resources/wsdl</wsdlRoot>
-
-
-                </configuration>
-                <goals>
-                    <goal>wsdl2java</goal>
-                </goals>
-            </execution>
-        </executions>
-    </plugin>   -->
 
     </plugins>
   </build>

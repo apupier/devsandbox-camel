@@ -37,6 +37,7 @@
       <!-- <log message="json2soap->JSON:\n${header.json}"/> -->
       <to uri="xslt-saxon:xslt/j2s.xsl"/>
       <!-- <log message="json2soap->SOAP:\n${body}"/> -->
+      <removeHeaders pattern="*"/>
     </route> 
 
 

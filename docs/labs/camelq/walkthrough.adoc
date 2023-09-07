@@ -4,7 +4,7 @@
 
 :experimental:
 
-:article-url: https://developers.redhat.com/articles/2023/02/10/how-run-camel-spring-boot-red-hat-developer-sandbox
+:article-url: https://developers.redhat.com/articles/pending/how-run-camel-quarkus-red-hat-developer-sandbox
 
 // URLs
 :codeready-url: http://codeready-che.{openshift-app-host}/
@@ -41,7 +41,7 @@ A client invokes an OpenApi service. A _Camel_ route attends the call, translate
 The _Camel_ source file `api-simple.xml` defines the entire end-to-end processing logic, which you can find in your project explorer under the path:
 
 --
-* `camelsb/level1simple-soap/src/main/resources/camel/api-simple.xml`
+* `camelq/level1simple-soap/src/main/resources/routes/api-simple.xml`
 +
 image::images/00-camel-routes.png[align="left", width=30%]
 +
@@ -353,7 +353,7 @@ http://soap1:8080/services/s1 \
 | bat -pP -lxml<br>
 ----
 +
-NOTE: The cURL command above now points to the newly deployed pod, with its service `soap1` listening on port 8080.
+NOTE: The cURL command above now points to the newly deployed pod, with its service `soap1` listening on port `8080`.
 +
 NOTE: The command also includes pipes to pretty-print and colorize the SOAP output for better reading.
 +
@@ -435,7 +435,7 @@ curl -s \
 http://simple:8080/camel/subscriber/details | jq<br>
 ----
 +
-NOTE: The cURL command above now points to the newly deployed pod's _Kubernetes_ service `simple`, listening on port 8080.
+NOTE: The cURL command above now points to the newly deployed pod's _Kubernetes_ service `simple`, listening on port `8080`.
 +
 NOTE: The command also includes a pipe to parse and colorise the JSON output for better reading.
 +

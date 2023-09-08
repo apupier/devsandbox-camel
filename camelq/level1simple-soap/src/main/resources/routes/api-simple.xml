@@ -35,7 +35,7 @@
         <constant>&lt;data/&gt;</constant>
       </setBody>
       <!-- <log message="json2soap->JSON:\n${header.json}"/> -->
-      <to uri="xslt-saxon:xslt/j2s.xsl"/>
+      <to uri="xslt-saxon:xslt/request.xsl"/>
       <!-- <log message="json2soap->SOAP:\n${body}"/> -->
       <removeHeaders pattern="*"/>
     </route> 
@@ -47,7 +47,7 @@
         <simple>${body[0]}</simple>
       </setBody>
       <!-- <log message="soap2json->SOAP:\n${body}"/> -->
-      <to uri="xslt-saxon:xslt/s2j.xsl"/>
+      <to uri="xslt-saxon:xslt/response.xsl"/>
       <!-- <log message="soap2json->JSON:\n${body}"/> -->
       <setHeader name="Content-Type">
         <constant>application/json</constant>

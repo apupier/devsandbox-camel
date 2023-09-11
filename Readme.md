@@ -14,8 +14,9 @@ Follow the link to the article to run the lab you're interested in.
 
 |            Lab Name             | Preview in GitHub | Article | 
 |:--------------------------------|:-------:|:-----------------:|
-| Camel Spring Boot - Simple Demo  | [preview](docs/labs/camelsb/walkthrough.adoc)| pending
-| Camel K - User Demo             | [preview](docs/labs/camelk/walkthrough.adoc) | pending
+| Camel Spring Boot - Simple Demo  | [preview](docs/labs/camelq/walkthrough.adoc)| pending
+| Camel Spring Boot - Simple Demo  | [preview](docs/labs/camelsb/walkthrough.adoc)| [link](https://developers.redhat.com/articles/2023/02/10/how-run-camel-spring-boot-red-hat-developer-sandbox)
+| Camel K - User Demo             | [preview](docs/labs/camelk/walkthrough.adoc) | [link](https://developers.redhat.com/articles/2023/03/09/try-camel-k-developer-sandbox)
 
 <br/>
 

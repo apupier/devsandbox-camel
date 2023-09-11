@@ -48,10 +48,10 @@ Take aways for this lab:
 [id="explore-code"]
 == Explore the source code
 
-The _Camel_ source file `api-simple.xml` defines the entire end-to-end processing logic, which you can find in your project explorer under the path:
+The _Camel_ source file `api-simple.yaml` defines the entire end-to-end processing logic, which you can find in your project explorer under the path:
 
 --
-* `camelq/level1simple-soap/src/main/resources/routes/api-simple.xml`
+* `camelq/level1simple-soap/src/main/resources/routes/api-simple.yaml`
 +
 image::images/00-camel-routes.png[align="left", width=30%]
 +
@@ -76,7 +76,7 @@ The key processing actions are:
 
 {blank}
 
-The code above is written using the XML DSL (_Domain Specific Language_), but _Camel_ also provides a Java DSL and a YAML DSL.
+The code above is written using the YAML DSL (_Domain Specific Language_), but _Camel_ also provides a Java DSL and an XML DSL.
 
 Feel free to explore other regions of the code and project if you are curious about the entire implementation. 
 

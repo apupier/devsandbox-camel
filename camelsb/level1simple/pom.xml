@@ -14,29 +14,21 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-    <spring.boot-version>2.7.4</spring.boot-version>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <maven.compiler.release>17</maven.compiler.release>
+    <spring.boot-version>3.1.4</spring.boot-version>
     <surefire.plugin.version>3.0.0-M4</surefire.plugin.version>
-
-    <jkube.generator.from>registry.access.redhat.com/ubi8/openjdk-11:1.14</jkube.generator.from>
-
+    <jkube.generator.from>registry.access.redhat.com/ubi8/openjdk-17:latest</jkube.generator.from>
     <openshift-maven-plugin-version>1.9.1.redhat-00004</openshift-maven-plugin-version>
   </properties>
 
   <dependencyManagement>
     <dependencies>
-      <!-- Spring Boot BOM -->
       <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>${spring.boot-version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <!-- Camel BOM -->
-      <dependency>
-        <groupId>org.apache.camel.springboot</groupId>
+        <groupId>com.redhat.camel.springboot.platform</groupId>
         <artifactId>camel-spring-boot-bom</artifactId>
-        <version>3.14.5.redhat-00012</version>
+        <version>4.0.0.redhat-00028</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -72,6 +64,10 @@
     </dependency>
     <dependency>
       <groupId>org.apache.camel.springboot</groupId>
+      <artifactId>camel-spring-boot-xml-starter</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.camel.springboot</groupId>
       <artifactId>camel-xslt-saxon-starter</artifactId>
     </dependency>
     <dependency>
@@ -80,10 +76,6 @@
     </dependency>
 
     <!-- REST -->
-    <dependency>
-        <groupId>org.apache.camel.springboot</groupId>
-        <artifactId>camel-swagger-java-starter</artifactId>
-    </dependency>
     <dependency>
         <groupId>org.apache.camel.springboot</groupId>
         <artifactId>camel-servlet-starter</artifactId>
@@ -132,8 +124,8 @@
       <plugin>
         <groupId>org.apache.camel</groupId>
         <artifactId>camel-restdsl-openapi-plugin</artifactId>
-        <!-- we need to specify the version, otherwise it may get the upstream version where REST DSL spec may be different -->
-        <version>3.7.0.fuse-800004-redhat-00001</version>
+        <!-- we need to specify the version, otherwise it may get a version where REST DSL spec may be different -->
+        <version>4.1.0</version>
         <executions>
           <execution>
             <id>simple</id>

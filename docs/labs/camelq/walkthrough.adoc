@@ -4,7 +4,7 @@
 
 :experimental:
 
-:article-url: https://developers.redhat.com/articles/pending/how-run-camel-quarkus-red-hat-developer-sandbox
+:article-url: https://developers.redhat.com/articles/2023/10/06/try-camel-quarkus-developer-sandbox-red-hat-openshift#rest_and_soap_with_camel_on_quarkus
 
 // URLs
 :codeready-url: http://codeready-che.{openshift-app-host}/

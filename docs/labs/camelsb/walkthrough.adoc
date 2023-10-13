@@ -101,6 +101,7 @@ Then, copy/paste the following command to start the stub in the terminal:
 +
 [source, subs=]
 ----
+export JAVA_HOME=$JAVA_HOME_17
 mvn -Dspring-boot.run.profiles=dev -s configuration/settings.xml<br>
 ----
 +
@@ -189,6 +190,7 @@ Then, copy/paste the following command to start the stub in the terminal:
 +
 [source, subs=]
 ----
+export JAVA_HOME=$JAVA_HOME_17
 mvn -Dspring-boot.run.profiles=dev -s configuration/settings.xml<br>
 ----
 +
@@ -495,7 +497,9 @@ Inspect in the stub logs to investigate possible causes of failure.
 
 {empty} +
 
-=== Clean up your namespace
+[time=1]
+[id="clean-up"]
+== Clean up your namespace
 
 When you're done playing in the _Developer Sandbox_, you can clean up your Sandbox namespace by un-deploying your Camel `simple` service and stub `end1` using the following _Maven_ `oc:undeploy` command for both:
 
@@ -507,3 +511,16 @@ mvn oc:undeploy -Popenshift -s configuration/settings.xml<br>
 {blank}
 
 Executing the command above for both services should leave your topology view clean from routes, services, and other Kubernetes artifacts in your namespace.
+
+{empty} +
+
+[type=verification]
+Is your namespace clean from artifacts?
+
+[type=verificationSuccess]
+You've successfully cleaned up your namespace !!
+
+[type=verificationFail]
+Inspect in the logs to investigate possible causes of failure.
+
+{empty} +

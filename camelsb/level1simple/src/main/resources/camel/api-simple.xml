@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- camel-k: language=xml dependency=camel-quarkus-openapi-java dependency=mvn:xalan:xalan:2.7.1 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns="http://camel.apache.org/schema/spring"
@@ -40,7 +39,7 @@
         <constant>&lt;data/&gt;</constant>
       </setBody>
       <!-- <log message="json2xml->JSON:\n${header.json}"/> -->
-      <to uri="xslt-saxon:xslt/j2x.xsl"/>
+      <to uri="xslt-saxon:xslt/request.xsl"/>
       <!-- <log message="json2xml->XML:\n${body}"/> -->
     </route>
 
@@ -49,7 +48,7 @@
       <from uri="direct:xml2json"/>
       <convertBodyTo type="String"/>
       <!-- <log message="xml2json->XML:\n${body}"/> -->
-      <to uri="xslt-saxon:xslt/x2j.xsl"/>
+      <to uri="xslt-saxon:xslt/response.xsl"/>
       <!-- <log message="xml2json->JSON:\n${body}"/> -->
     </route>
 

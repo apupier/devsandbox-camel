@@ -1,3 +1,8 @@
+## Play with this lab in the Developer Sandbox
+
+Follow the guidelines in this [blog article](https://developers.redhat.com/articles/2023/02/10/how-run-camel-spring-boot-red-hat-developer-sandbox) to run this demo/lab in the Developer Sandbox.
+
+
 ## Dependency
 This service requires a backend up and running. You can find it under the folder:
  - camelsb/stubs/end1

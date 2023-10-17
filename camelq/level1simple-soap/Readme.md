@@ -1,3 +1,8 @@
+## Play with this lab in the Developer Sandbox
+
+Follow the guidelines in this [blog article](https://developers.redhat.com/articles/2023/10/06/try-camel-quarkus-developer-sandbox-red-hat-openshift) to run this demo/lab in the Developer Sandbox.
+
+
 ## Running JUnits
 
 The service includes a JUnit to showcase how unit testing can be implemented for Camel Quarkus implementations.

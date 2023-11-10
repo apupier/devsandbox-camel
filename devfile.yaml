@@ -21,7 +21,7 @@ components:
       volumeMounts:
         - name: m2
           path: /home/user/.m2
-      command: ['JAVA_HOME=$JAVA_HOME_17 && /entrypoint.sh']
+      # command: ['JAVA_HOME=$JAVA_HOME_17 && /entrypoint.sh']
       # args: ['JAVA_HOME=/home/tooling/.sdkman/candidates/java/17.0.3-tem']
       # args: ['JAVA_HOME','=','/home/tooling/.sdkman/candidates/java/17.0.3-tem']
 

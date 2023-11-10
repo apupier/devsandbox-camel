@@ -1,7 +1,7 @@
 package org.apache.camel.example;
 
 import io.quarkus.test.junit.QuarkusTest;
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 import org.apache.camel.CamelContext;
 import org.apache.camel.builder.RouteBuilder;
 import org.apache.camel.component.mock.MockEndpoint;
@@ -65,7 +65,7 @@ public class SoapTest extends CamelQuarkusTestSupport {
             );
 
         //validate stub expecations
-        assertMockEndpointsSatisfied();
+        MockEndpoint.assertIsSatisfied(context);
 
         //obtain request sent to SOAP backend
         org.example.s1.SubscriberRequest stubMessage = 

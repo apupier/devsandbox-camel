@@ -6,17 +6,15 @@
   <artifactId>simple</artifactId>
   <version>1.0.0</version>
   <properties>
-    <compiler-plugin.version>3.8.1</compiler-plugin.version>
-    <failsafe.useModulePath>false</failsafe.useModulePath>
-    <maven.compiler.release>11</maven.compiler.release>
+    <compiler-plugin.version>3.11.0</compiler-plugin.version>
+    <maven.compiler.release>17</maven.compiler.release>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
     <quarkus.platform.artifact-id>quarkus-bom</quarkus.platform.artifact-id>
     <quarkus.platform.group-id>com.redhat.quarkus.platform</quarkus.platform.group-id>
-
-    <quarkus.platform.version>2.13.8.SP1-redhat-00003</quarkus.platform.version>
-    <surefire-plugin.version>3.0.0-M7</surefire-plugin.version>
-    <cxf.version>3.5.3.redhat-00033</cxf.version>
+    <quarkus.platform.version>3.2.6.SP1-redhat-00001</quarkus.platform.version>
+    <skipITs>true</skipITs>
+    <surefire-plugin.version>3.0.0</surefire-plugin.version>
   </properties>
   <dependencyManagement>
     <dependencies>
@@ -78,20 +76,6 @@
       <artifactId>camel-quarkus-cxf-soap</artifactId>
     </dependency>
 
-        <!--
-        Ref: https://github.com/atlasmap/atlasmap/issues/3328 
-        There seems to be a reported bug where Xalan is not by default
-        included in some JDKs.
-        While the problem exists, this dependency needs to be explicitly included.
-        Deployments to OpenShift without it lead to errors where Xalan is not found.
-        A JIRA has been raised to address the problem:
-         - https://issues.redhat.com/browse/ENTESB-19029
-         -->
-        <dependency>
-            <groupId>org.apache.camel.quarkus</groupId>
-            <artifactId>camel-quarkus-support-xalan</artifactId>
-        </dependency>
-
     <dependency>
       <groupId>org.apache.camel.quarkus</groupId>
       <artifactId>camel-quarkus-rest</artifactId>
@@ -103,15 +87,16 @@
 
     <!-- Test -->
     <dependency>
-        <groupId>org.apache.camel.quarkus</groupId>
-        <artifactId>camel-quarkus-junit5</artifactId>
-        <scope>test</scope>
+      <groupId>org.apache.camel.quarkus</groupId>
+      <artifactId>camel-quarkus-junit5</artifactId>
+      <scope>test</scope>
     </dependency>
     <dependency>
         <groupId>io.rest-assured</groupId>
         <artifactId>rest-assured</artifactId>
         <scope>test</scope>
     </dependency>
+
 
   </dependencies>
   <repositories>
@@ -174,42 +159,61 @@
           </systemPropertyVariables>
         </configuration>
       </plugin>
+      <plugin>
+        <artifactId>maven-failsafe-plugin</artifactId>
+        <version>${surefire-plugin.version}</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>integration-test</goal>
+              <goal>verify</goal>
+            </goals>
+            <configuration>
+              <systemPropertyVariables>
+                <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
+                <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
+                <maven.home>${maven.home}</maven.home>
+              </systemPropertyVariables>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
 
       <!-- 
       To enable API-first approach:
       This plugin auto-generates the Camel REST-DSL definition
       Camel loads it from the classpath -->
       <plugin>
-          <groupId>org.apache.camel</groupId>
-          <artifactId>camel-restdsl-openapi-plugin</artifactId>
-          <version>3.21.0</version>
-          <executions>
-              <execution>
-                  <id>prod-mode</id>
-                  <phase>generate-sources</phase>
-                  <goals>
-                      <goal>generate-xml</goal>
-                  </goals>
-                  <configuration>
-                      <specificationUri>src/main/resources/META-INF/openapi.json</specificationUri>
-                      <restConfiguration>false</restConfiguration>
-                      <outputDirectory>${project.build.directory}/classes/routes/</outputDirectory>
-                  </configuration>
-              </execution>
-              <execution>
-                  <id>dev-mode</id>
-                  <phase>generate-sources</phase>
-                  <goals>
-                      <goal>generate-xml</goal>
-                  </goals>
-                  <configuration>
-                      <specificationUri>src/main/resources/META-INF/openapi.json</specificationUri>
-                      <restConfiguration>false</restConfiguration>
-                      <outputDirectory>${project.build.directory}/generated/routes/</outputDirectory>
-                  </configuration>
-              </execution>
-          </executions>
-      </plugin>
+        <groupId>org.apache.camel</groupId>
+        <artifactId>camel-restdsl-openapi-plugin</artifactId>
+        <version>4.1.0</version>
+        <executions>
+            <execution>
+                <id>prod-mode</id>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>generate-xml</goal>
+                </goals>
+                <configuration>
+                    <specificationUri>src/main/resources/META-INF/openapi.json</specificationUri>
+                    <restConfiguration>false</restConfiguration>
+                    <outputDirectory>${project.build.directory}/classes/routes/</outputDirectory>
+                </configuration>
+            </execution>
+            <execution>
+                <id>dev-mode</id>
+                <phase>generate-sources</phase>
+                <goals>
+                    <goal>generate-xml</goal>
+                </goals>
+                <configuration>
+                    <specificationUri>src/main/resources/META-INF/openapi.json</specificationUri>
+                    <restConfiguration>false</restConfiguration>
+                    <outputDirectory>${project.build.directory}/generated/routes/</outputDirectory>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
 
     </plugins>
   </build>
@@ -221,30 +225,8 @@
           <name>native</name>
         </property>
       </activation>
-      <build>
-        <plugins>
-          <plugin>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <version>${surefire-plugin.version}</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-                <configuration>
-                  <systemPropertyVariables>
-                    <native.image.path>${project.build.directory}/${project.build.finalName}-runner</native.image.path>
-                    <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                    <maven.home>${maven.home}</maven.home>
-                  </systemPropertyVariables>
-                </configuration>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
       <properties>
+        <skipITs>false</skipITs>
         <quarkus.package.type>native</quarkus.package.type>
       </properties>
     </profile>

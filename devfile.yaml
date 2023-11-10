@@ -6,6 +6,9 @@ components:
     container:
       image: quay.io/devfile/universal-developer-image:ubi8-latest
       memoryLimit: 3Gi
+      env:
+        - name: JAVA_HOME
+          value: $JAVA_HOME_17
       endpoints:
         - exposure: none
           name: debug

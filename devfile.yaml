@@ -6,9 +6,9 @@ components:
     container:
       image: quay.io/devfile/universal-developer-image:ubi8-latest
       memoryLimit: 3Gi
-      # env:
-      #   - name: JAVA_HOME
-      #     value: /home/tooling/.sdkman/candidates/java/17.0.3-tem
+      env:
+        - name: JAVA_HOME_TEST
+          value: /home/tooling/.sdkman/candidates/java/17.0.3-tem
       endpoints:
         - exposure: none
           name: debug
@@ -21,8 +21,8 @@ components:
       volumeMounts:
         - name: m2
           path: /home/user/.m2
-      command: ['export']
-      args: ['JAVA_HOME=/home/tooling/.sdkman/candidates/java/17.0.3-tem']
+      command: ['JAVA_HOME=$JAVA_HOME_17 && /entrypoint.sh']
+      # args: ['JAVA_HOME=/home/tooling/.sdkman/candidates/java/17.0.3-tem']
       # args: ['JAVA_HOME','=','/home/tooling/.sdkman/candidates/java/17.0.3-tem']
 
   - name: webapp

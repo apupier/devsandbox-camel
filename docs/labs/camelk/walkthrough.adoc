@@ -301,6 +301,14 @@ Press kbd:[ctrl+s] (linux) or kbd:[⌘+s] (mac) to save your changes.
 +
 Once more, the platform's operator reacts and deploys a new version of the definition, except this time, we can invoke the service from a terminal to test it.
 +
+NOTE: When _Camel K_ defines an HTTP entrypoint it automatically deploys it as a _Knative_ serverless application by default. You will see the pod scale to zero when no traffic comes in. When a request comes in, _Knative_ scales up the pod and the application consumes it and responds.
++
+{blank}
++
+If you have a look to your topology view from your OpenShift developer console, you'll see the integration running as serverless app (can scale to zero), as per the picture below:
++
+image::images/pod-user-knative.png[align="left", width=20%]
++
 {empty} +
 +
 1. Test the service
@@ -315,14 +323,18 @@ From the new terminal, run the following cURL command to test your service:
 +
 [source, subs=]
 ----
-curl http://user/user | jq<br>
+curl `kn route list -o jsonpath={.items[?(@.metadata.name==\"user\")].status.url}`/user | jq<br>
 ----
++
+NOTE: The curl command resolves the URL by using the _Knative_ client `kn` and extracting the http route of the service.
 +
 NOTE: The command includes a pipe to parse the JSON response with JQuery, which nicely renders the returned JSON payload.
 +
 {blank}
 +
 You should see `curl` returning new randomly generated user data, in the expected JSON format.
++
+NOTE: If the pod was scaled to zero, the curl command will trigger it to scale to 1 and process the request.
 +
 {blank}
 +
@@ -392,7 +404,7 @@ It is the _Camel K_ operator, not visible to you, running in the _Developer Sand
 +
 If you switch to your _Developer Sandbox_ topology view, you'll see the pod running again, only this time is not hooked to your terminal:
 +
-image::images/pod-user.png[align="left", width=20%]
+image::images/pod-user-knative.png[align="left", width=20%]
 +
 {empty} +
 
@@ -436,39 +448,9 @@ user   Running   kit-ceu0v85mq41b5tocq4sg   1
 +
 {empty} +
 
-. Test the service
-+
-Run the following cURL command to test your service:
-+
-[source, subs=]
-----
-curl http://user/user | jq<br>
-----
-+
-NOTE: The command includes a pipe to parse the JSON response with JQuery, which nicely renders the returned JSON payload.
-+
-{blank}
-+
-You should see `curl` returning the expected JSON response, as in previous invocations.
-+
-{empty} +
-
 . Invoke the service as an external client
 +
-Notice the previous cURL command uses an internal service URL, which is not directly accessible by external consumers. 
-+
-For security reasons, the _Camel K_ operator in the _Developer Sandbox_ does not expose the HTTP service by default. You need to manually create a route if you want external consumers to have access.
-+
-Run the following command to expose the service:
-+
-[source, subs=]
-----
-oc expose service user --path=/user<br>
-----
-+
-{blank}
-+
-You can notice right away, from your topology view, your pod now showing a small icon to open the URL exposed by the service:
+You can notice, from your topology view, your pod showing a small icon to open the URL exposed by the service:
 +
 image::images/pod-user-route.png[align="left", width=25%]
 +
@@ -490,19 +472,19 @@ You can also obtain the route details with the following command and use its URL
 +
 [source, subs=]
 ----
-oc get route user<br>
+kn route list -o jsonpath={.items[?(@.metadata.name==\"user\")].status.url}<br>
 ----
 +
 {blank}
 +
-Embedding the `oc get route` command in a cURL allows you to invoke the service as an external consumer.
+Embedding the `kn` command in a cURL allows you to invoke the service as an external consumer.
 +
 --
 * Copy/paste the following cURL command to simulate an external call and obtain a response from the _Camel_ service:
 +
 [source, subs=]
 ----
-curl `oc get route user -o jsonpath={.spec.host}`/user | jq<br>
+curl `kn route list -o jsonpath={.items[?(@.metadata.name==\"user\")].status.url}`/user | jq<br>
 ----
 +
 {blank}
@@ -548,15 +530,6 @@ or
 oc delete integration user<br>
 ----
 --
-
-{empty} +
-
-Make sure you also delete the route you created manually:
-
-[source, subs=]
-----
-oc delete route user<br>
-----
 
 {empty} +
 

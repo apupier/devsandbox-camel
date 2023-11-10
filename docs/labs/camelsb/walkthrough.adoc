@@ -101,7 +101,6 @@ Then, copy/paste the following command to start the stub in the terminal:
 +
 [source, subs=]
 ----
-export JAVA_HOME=$JAVA_HOME_17
 mvn -Dspring-boot.run.profiles=dev -s configuration/settings.xml<br>
 ----
 +
@@ -190,7 +189,6 @@ Then, copy/paste the following command to start the stub in the terminal:
 +
 [source, subs=]
 ----
-export JAVA_HOME=$JAVA_HOME_17
 mvn -Dspring-boot.run.profiles=dev -s configuration/settings.xml<br>
 ----
 +

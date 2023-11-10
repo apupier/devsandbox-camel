@@ -138,7 +138,6 @@ Then, copy/paste the following command to start the stub in the terminal:
 +
 [source, subs=]
 ----
-export JAVA_HOME=$JAVA_HOME_17
 ./mvnw clean compile quarkus:dev -Ddebug=6006<br>
 ----
 +
@@ -232,7 +231,6 @@ Then, copy/paste the following command to start the REST service in the terminal
 +
 [source, subs=]
 ----
-export JAVA_HOME=$JAVA_HOME_17
 ./mvnw clean compile quarkus:dev<br>
 ----
 +

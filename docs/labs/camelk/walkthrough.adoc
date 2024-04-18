@@ -110,11 +110,11 @@ This section guides you into creating your code and iterate over it using _Camel
 
 . Create your integration definition
 +
-To swiftly create a skeleton _Camel_ route definition, we can use the `kamel` client (_Camel K_ client) from the terminal. Execute the following command:
+To swiftly create a skeleton _Camel_ route definition, we can use the `camel` client ( link:https://camel.apache.org/manual/camel-jbang.html[_Camel JBang_, window="_blank", id="camel-jbang"] client) from the terminal. Execute the following command:
 +
 [source, subs=]
 ----
-kamel init user.xml<br>
+camel init user.xml<br>
 ----
 +
 {blank}

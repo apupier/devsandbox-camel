@@ -58,9 +58,9 @@ components:
     volume:
       size: 256Mi
 
-events:
-  postStart:
-    - set-camel-cli
+# events:
+#   postStart:
+#     - set-camel-cli
 
 commands:
   # - id: set-java-17

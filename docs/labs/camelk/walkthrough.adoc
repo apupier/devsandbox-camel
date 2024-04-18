@@ -77,7 +77,7 @@ Make sure your CLI `oc` client (_OpenShift_ client) points to your personal _Dev
 +
 [source, subs=]
 ----
-oc projects -q | xargs oc project<br>
+oc projects -q | grep dev | xargs oc project<br>
 ----
 +
 NOTE: The _Developer Sandbox_ only allows 1 project (namespace) per user.

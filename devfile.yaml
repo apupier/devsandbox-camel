@@ -70,7 +70,8 @@ commands:
 
   - id: set-camel-cli
     exec:
-      commandLine: source ~/.bashrc && jbang app install camel@apache/camel
+      # commandLine: source ~/.bashrc && jbang app install camel@apache/camel
+      commandLine: 'jbang app install camel@apache/camel'
       component: tools
 
 

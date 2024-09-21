@@ -10,10 +10,10 @@ components:
         - name: JAVA_HOME_TEST
           value: /home/tooling/.sdkman/candidates/java/17.0.3-tem
       endpoints:
-        - exposure: none
-          name: debug
-          protocol: tcp
-          targetPort: 5005
+        # - exposure: none
+        #   name: debug
+        #   protocol: tcp
+        #   targetPort: 5005
         - exposure: public
           name: 8080-tcp
           protocol: http

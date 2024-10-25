@@ -37,7 +37,7 @@ components:
           value: '4'
         - name: WALKTHROUGH_LOCATIONS
           value: >-
-            https://github.com/RedHat-Middleware-Workshops/devsandbox-camel-sb-simple?walkthroughsFolder=/docs/labs
+            https://github.com/RedHat-Middleware-Workshops/devsandbox-camel/tree/camel-lowcode?walkthroughsFolder=/docs/labs
       endpoints:
         - name: tutorial
           exposure: public

@@ -456,172 +456,42 @@ The invocation should return JSON data, similar to:
   ...
 ----
 +
-{blank}
-+
-You're on track.
-+
 {empty} +
-
-. dgsfg
-+
-From the code below, take the snippet with the image:images/copypaste.png[width=5%] (copy) button and inject it in your code in the same region as shown below, right after the outgoing HTTP invocation:
-+
-----
-    <route id="xml">
-        <from uri="timer:xml?repeatCount=1"/>
-
-        <removeHeaders pattern="*"/>
-        <to uri="https://random-data-api.com/api/v2/users?response_type=xml"/>
-----
-+
-```xml
-        <unmarshal>
-            <jacksonXml/>
-        </unmarshal>
-        <marshal>
-            <json/>
-        </marshal>
-```
-+
-----
-        <log message="${body}"/>
-    </route>
-----
-+
-{blank}
-+
-NOTE: the marshal/unmarshal directive in _Camel_ converts data via the use of _Camel_ data formats. These are automatic data format converters. In the code above, the XML response is unmarshalled into a mid-step _Java_ structure, and then marshalled into the final JSON data.
-+
-Press kbd:[ctrl+s] (linux) or kbd:[⌘+s] (mac) to save your changes.
-+
-The _Camel JBang_ client, running in *'dev mode'*, catches the changes and pushes the new definition to _OpenShift_, causing the _Camel K_ operator to react and trigger a fast build/deploy replacing the previous version. From the developer's perspective, this happens transparently and very fast.
-+
-You will see in the terminal _Camel_ reloading the new definition and triggering a new HTTP request and this time displaying the result in JSON format, similar to:
-+
-----
-{  … ,"email": "edith.green@email.com", …,"username": "edith.green"}
-----
-+
-NOTE: The sample above is trimmed to just show some of the relevant fields. Your response will contain many other fields.
-+
-{empty} +
-+
-1. Expose the integration as an HTTP service
-+
-Since the payload is now transformed in the desired output format, we can perform one last edit to expose the service to be consumable via an HTTP entry point.
-+
-Replace the starting `timer` activity with the `platform-http` component. From the code below, take the snippet with the image:images/copypaste.png[width=5%] (copy) button and replace the current `timer` activity in your code in the same region as shown below, right at the start the _Camel_ route:
-+
-----
-    <route id="xml">
-----
-+
-```xml
-        <from uri="platform-http:/user"/> 
-```
-+
-----
-        <removeHeaders pattern="*"/>
-        <to uri="https://random-data-api.com/api/v2/users?response_type=xml"/>
-        <unmarshal>
-            <jacksonXml/>
-        </unmarshal>
-        <marshal>
-            <json/>
-        </marshal>
-        <log message="${body}"/>
-    </route>
-----
-+
-{blank}
-+
-The new `platform-http` activity above tells _Camel_ to use the native HTTP library to accept incoming invocations using the `/user` path.
-+ 
-Press kbd:[ctrl+s] (linux) or kbd:[⌘+s] (mac) to save your changes.
-+
-Once more, the platform's operator reacts and deploys a new version of the definition, except this time, we can invoke the service from a terminal to test it.
-+
-NOTE: When _Camel K_ defines an HTTP entrypoint it automatically deploys it as a _Knative_ serverless application by default. You will see the pod scale to zero when no traffic comes in. When a request comes in, _Knative_ scales up the pod and the application consumes it and responds.
-+
-{blank}
-+
-If you have a look to your topology view from your OpenShift developer console, you'll see the integration running as serverless app (can scale to zero), as per the picture below:
-+
-image::images/pod-user-knative.png[align="left", width=20%]
-+
-{empty} +
-+
-1. Test the service
-+
-Now, test the service from a new terminal. Choose the _Split_ option from the current terminal's top right corner, as shown below:
-+
-image::images/terminal-split.png[align="left", width=40%]
-+
-{blank}
-+
-From the new terminal, run the following cURL command to test your service:
-+
-[source, subs=]
-----
-curl `kn route list -o jsonpath={.items[?(@.metadata.name==\"user\")].status.url}`/user | jq<br>
-----
-+
-NOTE: The curl command resolves the URL by using the _Knative_ client `kn` and extracting the http route of the service.
-+
-NOTE: The command includes a pipe to parse the JSON response with JQuery, which nicely renders the returned JSON payload.
-+
-{blank}
-+
-You should see `curl` returning new randomly generated user data, in the expected JSON format.
-+
-NOTE: If the pod was scaled to zero, the curl command will trigger it to scale to 1 and process the request.
-+
-{blank}
-+
-You should see in your IDE a view similar to the picture below showing both terminals, the logs from the _Camel K_ integration running in the _Developer Sandbox_, and the `curl` command output:
-+
-image::images/service-user-terminals.png[align="center", width=100%]
 
 {empty} +
 
 [type=verification]
-Did you obtain the a JSON response similar to the one shown above?
+Did your last curl command return JSON data?
 
 [type=verificationSuccess]
-You've successfully tested your Camel K HTTP service !!
+Well done !!
 
 [type=verificationFail]
-Inspect the logs to investigate possible causes of failure.
-
-{empty} +
-
-Consider the development phase done. +
-Press kbd:[ctrl+c] to stop your Camel K instance.
-
-When stopped, you'll notice the pod in your _Developer Sandbox_ disappear:
-
-image::images/pod-user-deleted.png[align="left", width=60%]
-
-{empty} +
-
-[type=verification]
-Did you see your `user` pod deleted?
-
-[type=verificationSuccess]
-You're ready to step to the next chapter !!
-
-[type=verificationFail]
-You can try running `oc delete integration user` to force deleting the pod.
+Go back in your footsteps and review the actions.
 
 
 [time=4]
 [id="deploy-integration"]
 == Deploy your integration
 
+You've completed your prototype, it is time to deploy it. +
+The _Camel_ CLI (_Camel JBang_) includes a _Kubernetes_ plugin that makes it very easy to deploy your application on Openshift.
 
+Camel JBang and the _Kubernetes_ plugin will do all the work for you. Your code gets analysed and all the necessary dependencies automatically detected and downloaded, then containerised and deployed on Openshift.
 
+Follow the commands below:
 
+. If you haven't done so already, stop Camel with kbd:[Ctrl+c].
+. Run the following command from your terminal to deploy your application:
++
+[source, subs=]
+----
+camel kubernetes run * --cluster-type=openshift
+----
++
+NOTE: The `--cluster-type` flag indicates the _Kubernetes_ flavour of your target environment.
 
+{empty} +
 
 Running the `kamel` client with the `--dev` flag (dev mode) showed you in the previous chapter how to hook your terminal with the running pod  (dev mode) in the _Developer Sandbox_. Now you will deploy your integration detached from your IDE.
 

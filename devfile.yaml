@@ -71,6 +71,6 @@ commands:
   - id: set-camel-cli
     exec:
       # commandLine: source ~/.bashrc && jbang app install camel@apache/camel
-      commandLine: 'source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install camel@apache/camel -Dcamel.jbang.version=4.8.0 && jbang camel@apache/camel plugin add kubernetes'
+      commandLine: 'source ~/.bashrc && jbang trust add https://github.com/apache/camel/ && jbang app install -Dcamel.jbang.version=4.8.0 camel@apache/camel && jbang camel@apache/camel plugin add kubernetes'
       component: tools
 

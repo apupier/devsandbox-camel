@@ -4,6 +4,29 @@
 
 :experimental:
 
+// WORKS
+:style-kbd: kbd { \
+  color: black; \
+  background-color: lightgrey; \
+  border: 1px solid black; \
+  box-shadow: 0px 1px black; \
+  font-size: .85em; \
+  line-height: .85em; \
+  display: inline-block; \
+  font-weight: 600; \
+  letter-spacing: .05em; \
+  padding: 3px 5px; \
+  white-space: nowrap; \
+  border-radius:5px; \
+} \
+
+:style-preview: pre {background-color: black; color: white}
+
+// :style-indent: .indent2 {padding-left: 2rem;}
+
+:style-all: pass:a[<style>{style-kbd}{style-preview}</style>]
+// :style-all: pass:a[<style>{style-kbd}{style-preview}{style-indent}</style>]
+
 :article-url: https://developers.redhat.com/articles/2023/03/09/try-camel-k-developer-sandbox
 // URLs
 :codeready-url: http://codeready-che.{openshift-app-host}/
@@ -51,6 +74,7 @@ To briefly introduce the set of tools you're about to use, here's a list of the 
 - *Camel JBang*: _Camel_ CLI (command line interface) designed to boost prototyping and accelerate your work to create, test and deploy your applications.
 - *Quarkus*: The runtime used by _Camel_ to deploy your integration processes on _OpenShift_
 - *OpenShift*: _Kubernetes_ environment where you will deploy your _Camel_ project.
+- *OpenShift client*: OpenShit's CLI (command line interface) to help users manage projects in the environment.
 
 {empty} +
 
@@ -66,26 +90,64 @@ NOTE: It goes without saying that at any moment in time _Java_ code can be injec
 [time=2]
 [id="preparations"]
 == Lab Preparations
+{style-all}
 
-Before we start real work, let's prepare some equipment before riding the _Camel_.
+Before we start real work, let's prepare the equipment before riding the _Camel_.
 
 {empty} +
 
-. Toggle auto-save off
+
+=== Enable auto-save
+
+TIP: Ignore this step if auto-save is already enabled in your environment.
+
+. Toggle auto-save on (✓)
 +
-You'll be making live code changes which _Camel_ can pick up in real time. You need to ensure the changes do not trigger a reload every time you press a key, but only when you manually save your changes.
+You'll be making live code changes which _Camel_ can pick up in real time. When the file is saved Camel hot-reloads the changes. +
+To speed up hot-reloads, toggle (✓) auto-save in your editor, as illustrated below:
 +
 image::images/autosave.png[align="left", width=30%]
 +
 WARNING: The auto-save option in the menu does not always show when it's active/inactive. If you see in your editor's file tab a permanent white dot `⭘` when you make changes, it means auto-save is OFF.
-+
+
 {empty} +
 
-. Open your terminal
+=== Open a terminal
+
+From DevSpaces, open a terminal following the steps illustrated below:
+
+image::images/toggle-terminal.png[width=40%]
+
+{empty} +
+
+=== Copy/Paste commands
+
+You'll use command actions all along the lab. +
+To execute commands, perform the steps described below, as illustrated:
+
+image::images/copypaste.png[width=60%]
+
+{blank}
+
+. Click the button _Copy to clipboard_
+. Paste the command in the terminal:
+- on Linux: kbd:[Ctrl+Shift+v]
+- on Mac: kbd:[⌘+v]
 +
-Make sure you make visible your terminal in the IDE. You can toggle it using the keyboard keys kbd:[Ctrl + `] or simply find the option from the menu system as per the picture below:
+. Try it with:
 +
-image::images/toggle-terminal.png[align="left", width=40%]
+[source, subs=]
+----
+echo "this is a copy/paste test"<br>
+----
++
+--
+WARNING: It's been reported that these key-combos not always work. Your machine may not respond to the above descriptions. Please try other key or mouse click alternatives, for example, right-click, or middle-click.
+--
+
+{empty} +
+
+=== Prepare your working folder
 
 . Create a working folder
 +
@@ -93,9 +155,7 @@ Execute the commands below to create a new directory from where you can work and
 +
 [source, subs=]
 ----
-mkdir lab
-cd lab
-<br>
+mkdir lab && cd lab<br>
 ----
 +
 {empty} +
@@ -123,15 +183,36 @@ WARNING: Not specifying your target project (namespace) in _OpenShift_ may resul
 +
 {empty} +
 
+=== Tips for a better learning
+
+If you have a wide monitor, or can organise your browser tabs in a multi-monitor configuration, it is mostly recommended to position your _DevSpaces_ view and your lab instructions side by side, as per the image below:
+
+image::images/better-learning.png[width=80%, align=center]
+
+{empty} +
 
 You're now all set and ready start riding the _Camel_.
 
 {empty} +
 
 
+
+[type=verification]
+Is your terminal open and located in your `lab` directory?
+
+[type=verificationSuccess]
+👍 You're ready to roll!
+
+[type=verificationFail]
+Review the instructions above and ensure you run the `setup` script.
+
+
+
+
 [time=8]
 [id="development"]
 == Fast Prototyping
+{style-all}
 
 This section shows you to prototype your project in fast iteration cycles. _Camel JBang's_ provides a *'developer mode'* that allows it to detect and apply on-the-fly any changes you perform.
 
@@ -140,6 +221,15 @@ To make the example interesting, the service you will create will operate as an 
 {empty} +
 
 . Create your integration definition
++
+Make sure you're working from your `lab` directory:
++
+[source, subs=]
+----
+cd /projects/devsandbox-camel/lab<br>
+----
++
+{blank}
 +
 To swiftly create a skeleton _Camel_ route definition, we can use the `camel` client ( link:https://camel.apache.org/manual/camel-jbang.html[_Camel JBang_, window="_blank", id="camel-jbang"] client) from the terminal. Execute the following command:
 +
@@ -245,7 +335,7 @@ NOTE: The parameter `response_type` tells the server to return the data in XML f
 +
 --
 . Click the 3 dots kbd:[*⋮*] in `setBody`.
-. Click kbd:[Replace].
+. Click kbd:[⟳ Replace].
 . Use the filter `https` to search and find the component.
 . Select the HTTPS component.
 . Click on the HTTPS step.
@@ -260,13 +350,17 @@ image::images/kaoto-https.png[align="left", width=100%]
 In the logs, you will see _Camel_ reacting and fetching an XML response from the backend, similar to the sample lot traces below:
 +
 ----
-Routes reloaded summary (total:1 started:1)
-    Started route-4178 (timer://yaml) (source: user.camel.yaml:4)
-<?xml version="1.0" encoding="UTF-8"?>
+... : Routes reloaded summary (total:1 started:1)
+... :     Started route-4178 (timer://yaml) (source: user.camel.yaml:4)
+... : <?xml version="1.0" encoding="UTF-8"?>
 <hash>
-  ...
-  <username>jackqueline.mosciski</username>
-  <email>jackqueline.mosciski@email.com</email>
+  <id type="integer">9582</id>
+  <uid>837ec527-7925-4904-84ac-8b9113c2dbd8</uid>
+  <password>iobemgl1ZH</password>
+  <first-name>Carl</first-name>
+  <last-name>Auer</last-name>
+  <username>carl.auer</username>
+  <email>carl.auer@email.com</email>
   ...
 ----
 +
@@ -280,11 +374,19 @@ Look at the figure below and follow these steps:
 +
 --
 . Click the 3 dots kbd:[*⋮*] in `timer`.
-. Click kbd:[Replace].
+. Click kbd:[⟳ Replace].
 . Use the filter `platform-http` to search and find the component.
 . Select the *Platform HTTP* card.
 . Click on the `platform-http` step.
-. Set the Path property with `/user`.
+. Set the Path property to:
++
+[IMPORTANT]
+====
+[source, subs=]
+----
+/user
+----
+====
 . Close the configuration pane.
 --
 +
@@ -292,18 +394,14 @@ image::images/kaoto-platform-http.png[align="left", width=100%]
 +
 {blank}
 +
-In the logs, you will see _Camel_ reacting and fetching an XML response from the backend, similar to the sample lot traces below:
+In the logs, you will see _Camel_ reacting with traces similar to:
 +
 ----
-Routes reloaded summary (total:1 started:1)
-    Started route-4178 (timer://yaml) (source: user.camel.yaml:4)
-<?xml version="1.0" encoding="UTF-8"?>
-<hash>
-  ...
-  <username>jackqueline.mosciski</username>
-  <email>jackqueline.mosciski@email.com</email>
-  ...
+... : Routes reloaded summary (total:1 started:1)
+... :     Started route-4178 (platform-http:///user) (source: user.camel.yaml:5)
 ----
++
+NOTE: In contrast with previous updates, this time no execution takes place as _Camel_ waits for HTTP requests to comes in.
 +
 {empty} +
 
@@ -359,14 +457,18 @@ curl -s http://localhost:8080/user | bat -pP -lxml<br>
 +
 NOTE: The command also includes a pipe to colorize the XML output for better reading.
 +
-The invocation should return an XML header similar to:
+The invocation should return an XML payload similar to:
 +
 ----
 <?xml version="1.0" encoding="UTF-8"?>
 <hash>
-  <id type="integer">8077</id>
-  <uid>1d2f4251-deec-4208-a21a-166cf631c061</uid>
-  <password>9lJ6UGqIZE</password>
+  <id type="integer">9867</id>
+  <uid>f7907251-4336-40d3-8502-a1021a1a10b4</uid>
+  <password>KsbN09mckU</password>
+  <first-name>Danny</first-name>
+  <last-name>Stehr</last-name>
+  <username>danny.stehr</username>
+  <email>danny.stehr@email.com</email>
   ...
 ----
 +
@@ -389,7 +491,7 @@ Look at the figure below and follow these steps:
 +
 --
 . Right-click on the `https` step.
-. Select the  kbd:[Append] option.
+. Select the  kbd:[↓ Append] option.
 . Use the filter `unmarshal` to search and find the component.
 . Select the *Unmarshal* card.
 . Click on the `unmarshal` step.
@@ -405,10 +507,10 @@ Look at the figure below and follow these steps:
 +
 --
 . Right-click on the `unmarshal` step.
-. Select the  kbd:[Append] option.
+. Select the  kbd:[↓ Append] option.
 . Use the filter `marshal` to search and find the component.
 . Select the *Marshal* card.
-. Click on the `unmarshal` step.
+. Click on the `marshal` step.
 . Select the *Json* Data Format.
 . Close the configuration pane.
 --
@@ -458,8 +560,6 @@ The invocation should return JSON data, similar to:
 +
 {empty} +
 
-{empty} +
-
 [type=verification]
 Did your last curl command return JSON data?
 
@@ -470,9 +570,10 @@ Well done !!
 Go back in your footsteps and review the actions.
 
 
-[time=4]
+[time=5]
 [id="deploy-integration"]
 == Deploy your integration
+{style-all}
 
 You've completed your prototype, it is time to deploy it. +
 The _Camel_ CLI (_Camel JBang_) includes a _Kubernetes_ plugin that makes it very easy to deploy your application on Openshift.
@@ -482,179 +583,308 @@ Camel JBang and the _Kubernetes_ plugin will do all the work for you. Your code 
 Follow the commands below:
 
 . If you haven't done so already, stop Camel with kbd:[Ctrl+c].
+. Make sure you're working from your `lab` directory:
++
+[source, subs=]
+----
+cd /projects/devsandbox-camel/lab<br>
+----
++
 . Run the following command from your terminal to deploy your application:
 +
 [source, subs=]
 ----
-camel kubernetes run * --cluster-type=openshift
+camel kubernetes run * --cluster-type=openshift --trait route.enabled=true --trait route.tls-termination=edge<br>
 ----
 +
-NOTE: The `--cluster-type` flag indicates the _Kubernetes_ flavour of your target environment.
-
-{empty} +
-
-Running the `kamel` client with the `--dev` flag (dev mode) showed you in the previous chapter how to hook your terminal with the running pod  (dev mode) in the _Developer Sandbox_. Now you will deploy your integration detached from your IDE.
-
-. Execute the deployment command
-+
-All it takes to deploy your integration is to remove the `--dev` flag. +
-Copy and paste the command below to push the integration to the _Developer Sandbox_:
-+
-[source, subs=]
-----
-kamel run user.xml \
--d camel-jackson \
--d camel-jacksonxml<br>
-----
+[NOTE]
+====
+- The `--cluster-type` flag indicates the _Kubernetes_ flavour of your target environment.
+- The `route.enabled=true` trait indicates to create an Openshift route to allow external access.
+- The `route.tls-termination=edge` trait enables secure HTTP (HTTPS).
+====
 +
 {blank}
 +
-What really happens behind the scenes when executing the command above is that the `kamel` client converts your source code into an _Integration_ CRD (Custom Resource Definition) defined in YAML and then pushes it to the _Developer Sandbox_.
+The execution will export the code into a Camel Quarkus application and deploy it on Openshift. +
+In the logs you'll see following traces:
 +
-It is the _Camel K_ operator, not visible to you, running in the _Developer Sandbox_, that picks up the CRD and triggers a build and deploys it.
-+
+----
+...
+Exporting application ...
+Deploying to Openshift ...
+Invalid AnsiLogger Stream -> Swapping to default sdt out logger.
+[INFO] Adding existing Deployment with name: user.
+[INFO] Adding existing Service with name: user.
+[INFO] Adding existing Route with name: user.
+----
+
 {empty} +
 
-. Visualise your pod
-+
-If you switch to your _Developer Sandbox_ topology view, you'll see the pod running again, only this time is not hooked to your terminal:
-+
-image::images/pod-user-knative.png[align="left", width=20%]
-+
-{empty} +
+=== Check your deployment
 
-. Use the CLIs to confirm
-+
-You can use your terminal to obtain information about your running integration.
-+
-Using your `kamel` client, execute:
-+
+You can inspect when your deployment is ready by issuing the following command:
+
 [source, subs=]
 ----
-kamel get<br>
+watch oc get deployments<br>
 ----
-+
+
 {blank}
-+
-Which should return something similar to:
-+
+
+Your Camel application will be ready when `user` shows `READY 1/1`, similar to the output below:
+
 ----
-NAME    PHASE   KIT
-user    Running camel-k-operator/kit-ceu0v85mq41b5tocq4sg
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+user                        1/1     1            1           4m25s
+workspace7c6e32fd061c4d25   1/1     1            1           17m
 ----
-+
-{empty} +
-+
-Using your `oc` client (_OpenShift_ client), execute:
-+
-[source, subs=]
-----
-oc get integration<br>
-----
-+
-{blank}
-+
-Which should return something similar to:
-+
-----
-NAME   PHASE     KIT                        REPLICAS
-user   Running   kit-ceu0v85mq41b5tocq4sg   1
-----
-+
+
+TIP: Stop the watch with kbd:[Ctrl+c].
+
 {empty} +
 
-. Invoke the service as an external client
-+
-You can notice, from your topology view, your pod showing a small icon to open the URL exposed by the service:
-+
-image::images/pod-user-route.png[align="left", width=25%]
-+
-Click on it.
-+
-If your browser renders “Resource not found” or another error message, make sure your address bar uses HTTP (not HTTPS), and you include the service path ‘/user’ at the end of the URL, something similar to:
-+
+=== Open the Developer Console
+
+You can also visually inspect your pod by opening _Openshift's Developer Console_ following the actions below:
+
 --
-* `**http://**…(long address value here)...**/user**`
+. At the bottom-left of your screen, click the kbd:[pass:[<sub>&gt;</sub><sup>&lt;</sup>]] button.
+. Then at the top, select:
+- `Dev Spaces: Open OpenShift Console`
+. If a list of namespaces shows, select your namespace.
+. Your Camel Quarkus Application is labelled with `user`.
 --
+
+image::images/openshift-developer-console.png[align="left", width=100%]
+
+{empty} +
+
+
+[type=verification]
+Do you see your Camel application deployed in the Developer Console?
+
+[type=verificationSuccess]
+Well done !!
+
+[type=verificationFail]
+Review the instructions and try again.
+
+
+[time=2]
+[id="test-integration"]
+== Test your deployed integration
+{style-all}
+
+- Because the application has been deployed alongside your _DevSpaces_ workspace pod (see picture below), in the same _OpenShift_ namespace, you can call it from your same subnet.
++
+image::images/pod-user.png[align="left", width=30%]
 +
 {blank}
 +
-In your browser, you should see user data in JSON format, similar to:
-+
-image::images/user-http-response.png[align="center", width=100%]
-+
-You can also obtain the route details with the following command and use its URL from your favourite local HTTP client/tester, like _Postman_, _Swagger_ or others.
+Use the following command to test the deployed application:
 +
 [source, subs=]
 ----
-kn route list -o jsonpath={.items[?(@.metadata.name==\"user\")].status.url}<br>
+curl -s http://user:80/user | jq<br>
 ----
+NOTE: you can directly call the service `user` on port 80 because the pod runs in the same namespace.
 +
 {blank}
 +
-Embedding the `kn` command in a cURL allows you to invoke the service as an external consumer.
+Again, you should see a similar JSON response as per your previous test run locally.
 +
---
-* Copy/paste the following cURL command to simulate an external call and obtain a response from the _Camel_ service:
+----
+{
+  "phone-number": "+375 1-790-160-4090 x0991",
+  "address": {
+    "city": "East Justinafurt",
+    "street-name": "Jerde Club",
+    "street-address": "860 Yaeko Ramp",
+    ...
+----
+
+{empty} +
+
+=== Test the service using its external URL
+
+- When the Camel application was deployed using the _Kubernetes_ plugin, the command included the `route.enabled` setting to expose the service for external consumption. 
++
+Use the route to call the service as if it was an external call. Follow the commands below:
 +
 [source, subs=]
 ----
-curl `kn route list -o jsonpath={.items[?(@.metadata.name==\"user\")].status.url}`/user | jq<br>
+echo https://`oc get route user -o jsonpath={.spec.host}`/user<br>
 ----
 +
 {blank}
 +
-The invocation should return the expected JSON payload.
+Then, use the URL generated on a browser tab or click as indicated, like in the image below:
 +
---
+image::images/test-route.png[align="left", width=60%]
++
+{blank}
++
+You should see in your browser the JSON response obtained, similar to:
++
+image::images/browser-test.png[align="left", width=60%]
++
+TIP: When using _Chrome_, you can tick on the Pretty print check box to beautify the JSON response
++
+{empty} +
+
+[type=verification]
+Did you succeed to invoke the `user` service as an external consumer?
+
+[type=verificationSuccess]
+Well done !! 
+
+[type=verificationFail]
+Make sure your route exists, and you're using the `/user` path.
+
+{empty} +
+
+
+[time=2]
+[id="undeploy-integration"]
+== Undeploy your Camel integration
+{style-all}
+
+The list below summarises the main resources created by the _Camel Kubernetes_ plugin during the deployment process on _OpenShift_:
+
+- an _ImageStream_: your application containerised.
+- a _Deployment_: your application deployment definition
+- a _Service_: a _Kubernetes_ service to access your _Camel_ integration.
+- a _Route_: an _OpenShift_ route to expose the service to external clients.
+
+{blank}
+
+If you wanted to undeploy your application to free up resources in the environment you would need to manually delete the items on the list above, plus additional residual (not listed) resources.
+
+Thankfully, the _Camel Kubernetes_ plugin makes it super simple to undeploy your integration in one single command.
+
+Execute the command below to remove `user` from your namespace:
+
+[source, subs=]
+----
+camel kubernetes delete user<br>
+----
+
+{blank}
+
+In your terminal, you should see an execution output similar to:
+
+----
+Deleted: Service 'user'
+Deleted: Imagestreams 'openjdk-17'
+Deleted: Imagestreams 'user'
+Deleted: Buildconfigs 'user'
+Deleted: Deployments 'user'
+Deleted: Routes 'user'
+----
+
+{blank}
+
+Verify your deployment has been deleted by issuing the following _Openshift_ command:
+
+[source, subs=]
+----
+oc get deployments<br>
+----
+
+{blank}
+
+The command should return your workspace deployment only:
+
+----
+NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+workspace7c6e32fd061c4d25   1/1     1            1           16m
+----
+
+{empty} +
+
+[type=verification]
+Did you manage to successfully undeploy your `user` Camel integration?
+
+[type=verificationSuccess]
+Well done !!
+
+[type=verificationFail]
+Review the instructions in this chapter and try again.
+
+{empty} +
+
+[time=1]
+[id="section-learn"]
+== More Camel examples to learn from
+// == Take the solution further ahead
+{style-all}
+
+{empty} +
+
+=== 👏 👏 👏 Congratulations for getting this far 👏 👏 👏
+
+{empty} +
+
+For those thirsty of knowledge willing to learn more about other _Camel_ use cases we strongly recommend to try out another exciting tutorial.
+
+Follow the link below to visit the introductory article that will take you to the learning material:
+
+* link:{ai-basics-article-url}[​​Try OpenShift AI and integrate with Apache Camel,window="_blank", , id="rhd-source-article"]
+
+{empty} +
+
+WARNING: Before you go, please make sure you clean your sandbox namespace to free up resources. +
+Click `pass:[<mark style="background-color: dodgerblue; color: white">&nbsp;Next&nbsp;</mark>]` for detailed instructions.
+
+
+[time=1]
+[id="section-clean"]
+== Clean up your Developer Sandbox account
+{style-all}
+
+Before you go, make sure you leave your account clean from artifacts so that you can play with other tutorials in the future or simply do solo experimentation.
+
+{empty} +
+
+=== Delete workspace in Dev Spaces 
+
+When you're done playing with the workspace, follow the guidance below to delete it entirely from the environment.
+
+WARNING: Your VSCode environment along with these lab instructions will be deleted from your sandbox.
+
+First, stop your workspace by following the actions below: 
+
+. At the bottom-left of your screen, click the kbd:[pass:[<sub>&gt;</sub><sup>&lt;</sup>]] button.
+. Then at the top, select:
+- `Dev Spaces: Stop Workspace`
+
+image::images/workspace-stop.png[]
+
+{blank}
+
+Stopping your workspace will make your browser switch to the Dev Spaces dashboard.
+
+From the dashboard, follow the steps indicated below:
+
+. Click *_Workspaces_*, from the left menu.
+. Tick the checkbox for `devsandbox-catalog-ai-labs`.
+. Click the button `pass:[<mark style="background-color: navy; color: white">&nbsp;Delete&nbsp;</mark>]`.
++
+{blank}
++
+image::images/workspace-delete.png[width=60%]
 
 
 {empty} +
 
 [type=verification]
-Did you see succeed to invoke the `user` service as an external consumer?
+Is your namespace clean from artifacts?
 
 [type=verificationSuccess]
-Well done !! make sure you follow the instructions below to clean your project.
+You've successfully cleaned up your namespace !!
 
 [type=verificationFail]
-Make sure your route is in place, and you force your browser to use HTTP with the `/user` path.
-
-{empty} +
-
-=== Clean up your project
-
-When you're done playing in your _Developer Sandbox_, you can clean up your project (namespace) by un-deploying your _Camel K_ `user` integration by issuing the following command:
-
---
-* {empty}
-+
-[source, subs=]
-----
-kamel delete user<br>
-----
-+
-{blank}
-+
-or
-+
-* {empty}
-+
-[source, subs=]
-----
-oc delete integration user<br>
-----
---
-
-{empty} +
-
-[type=verification]
-Did you clean your sandbox project with the instructions above?
-
-[type=verificationSuccess]
-Well done !! Your namespace should be clean and ready for your next project.
-
-[type=verificationFail]
-Make sure your route was deleted, and your Camel K integration was removed.
+Review the instructions in this chapter and try again.
 
 {empty} +

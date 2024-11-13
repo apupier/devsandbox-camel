@@ -28,6 +28,7 @@
 // :style-all: pass:a[<style>{style-kbd}{style-preview}{style-indent}</style>]
 
 :article-url: https://developers.redhat.com/articles/2023/03/09/try-camel-k-developer-sandbox
+:ai-basics-article-url: https://developers.redhat.com/articles/2024/10/04/tutorial-tool-your-llm-apache-camel-openshift
 // URLs
 :codeready-url: http://codeready-che.{openshift-app-host}/
 
@@ -606,7 +607,10 @@ camel kubernetes run * --cluster-type=openshift --trait route.enabled=true --tra
 +
 {blank}
 +
-The execution will export the code into a Camel Quarkus application and deploy it on Openshift. +
+The execution will export the code into a Camel Quarkus application and deploy it on Openshift.
++
+NOTE: Be patient, the execution may take 3 to 5 minutes the first time as _Camel_ analyses the code, downloads required dependencies, builds  and deploys the application.
++
 In the logs you'll see following traces:
 +
 ----
@@ -830,7 +834,7 @@ For those thirsty of knowledge willing to learn more about other _Camel_ use cas
 
 Follow the link below to visit the introductory article that will take you to the learning material:
 
-* link:{ai-basics-article-url}[​​Try OpenShift AI and integrate with Apache Camel,window="_blank", , id="rhd-source-article"]
+* link:{ai-basics-article-url}[​​Tool up your LLM with Apache Camel on OpenShift,window="_blank", , id="rhd-source-article"]
 
 {empty} +
 

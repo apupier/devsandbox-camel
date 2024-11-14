@@ -44,7 +44,8 @@ Use Camel's fast prototyping using low-code UI and commands to build your integr
 
 This hands-on lab is based on the following blog article in Red Hat Developers:
 
-* link:{article-url}[window="_blank", , id="rhd-source-article"]
+* PENDING URL
+// * link:{article-url}[window="_blank", , id="rhd-source-article"]
 
 {empty} +
 
@@ -210,18 +211,16 @@ Review the instructions above and ensure you run the `setup` script.
 
 
 
-[time=8]
-[id="development"]
-== Fast Prototyping
+[time=5]
+[id="base-route"]
+== Base Camel Route
 {style-all}
 
-This section shows you to prototype your project in fast iteration cycles. _Camel JBang's_ provides a *'developer mode'* that allows it to detect and apply on-the-fly any changes you perform.
-
-To make the example interesting, the service you will create will operate as an adaptation layer, collecting data in XML format from a remote server and transforming it to JSON. This is a very typical use case where modern API façades serve data obtained from legacy systems.
+This section introduces you to _Camel JBang_. You will use it to create your base _Camel_ route and explore some of things you can during the development phase.
 
 {empty} +
 
-. Create your integration definition
+. Create your initial integration definition
 +
 Make sure you're working from your `lab` directory:
 +
@@ -270,14 +269,14 @@ The visual editor will show you the default _Camel_ route initialised in step 1,
 {empty} +
 
 
-. Run the integration in *'developer mode'*:
+. Run the integration with:
 +
 [source, subs=]
 ----
-camel run * --dev<br>
+camel run *<br>
 ----
 +
-NOTE: the `*` indicates to load all source files in the folder. the `--dev` flag activates the developer mode.
+NOTE: the `*` indicates to load all source files in the folder.
 +
 {blank}
 +
@@ -291,6 +290,154 @@ After Camel finishes the start up phase, you'll see a new trace every second, si
 +
 {empty} +
 
+
+=== Explore more Camel JBang features
+
+To quickly illustrate another useful feature, _Camel JBang_ includes a web based _Developer Console_.
+
+
+
+Stop _Camel_ with kbd:[Ctrl+c]. +
+And activate the _Developer Console_ using the flag `--console` as per the command below:
+
+[source, subs=]
+----
+camel run * --console<br>
+----
+
+{blank}
+
+_Dev Spaces_ will prompt you to open the port `8080`. +
+Do so and, in your browser's address bar, change the URL's path to the following one:
+
+- `/q/dev`
+
+{blank}
+
+NOTE: Make sure your browser uses plain `http://` (pass:[<s>https://</s>])
+
+Follow the actions illustrated below to open in a new browser tab:
+
+image::images/camel-jbang-console.png[][width=70%, align=center]
+
+{blank}
+
+You'll find a ton of information you can access. +
+Try for example:
+
+- pass:[<u style="color:blue">top</u>: Display the top routes]
+
+{blank}
+
+When refreshing the page after a few LLM interactions, it should show something similar to:
+
+++++
+<pre style="background-color: white; color: black">
+Top Routes:
+
+    Route Id: route1
+    From: timer://yaml?period=1000
+    Source: file:user.camel.yaml:1
+    Total: 73
+    Failed: 0
+    Inflight: 0
+    Mean Time: 0ms
+    Max Time: 8ms
+    Min Time: 0ms
+    Last Time: 0ms
+    Delta Time: 0ms
+    Total Time: 8ms
+</pre>
+++++
+
+{empty} +
+
+Another console option you can look at is:
+
+- pass:[<u style="color:blue">source</u>: Dump route source code]
+
+{blank}
+
+It will render the source code of your _Camel_ route in YAML DSL:
+
+++++
+<pre style="background-color: white; color: black">
+Source:
+
+    Id: route1
+    Source: file:user.camel.yaml:1
+
+    #1 - from:
+    #2     uri: "timer:yaml"
+    #3     parameters:
+    #4       period: "1000"
+    #5     steps:
+    #6       - setBody:
+    #7           simple: "Hello Camel from ${routeId}"
+    #8       - log: "${body}"
+</pre>
+++++
+
+{empty} +
+
+The examples from above show cool features (out of many) _Camel JBang_ includes. +
+Feel free to explore more by reading its link:https://camel.apache.org/manual/camel-jbang.html[​documentation,window="_blank", , id="rhd-source-article"] page.  
+
+// {empty} +
+
+[TIP]
+====
+
+You can always invoke _Camel JBang_'s help command, from the terminal, to discover all options and flags available:
+
+[source, subs=]
+----
+camel --help<br>
+----
+
+{blank}
+
+You also have more granular help per-command. For example, try the following:
+
+[source, subs=]
+----
+camel get --help<br>
+----
+====
+
+{empty} +
+
+[type=verification]
+Is your base route created and have you seen other _Camel JBang_ options?
+
+[type=verificationSuccess]
+👍 You're ready to roll!
+
+[type=verificationFail]
+Please review the steps of this chapter and try again.
+
+
+[time=5]
+[id="development"]
+== Fast Prototyping
+{style-all}
+
+This section shows you to prototype your project in fast iteration cycles. _Camel JBang's_ provides a *'developer mode'* that allows it to detect and apply on-the-fly any changes you perform.
+
+To make the example interesting, the service you will create will operate as an adaptation layer, collecting data in XML format from a remote server and transforming it to JSON. This is a very typical use case where modern API façades serve data obtained from legacy systems.
+
+Follow the commands below:
+
+. If you haven't done so already, stop Camel with kbd:[Ctrl+c].
+
+. Run the integration in *'developer mode'*:
++
+[source, subs=]
+----
+camel run * --dev<br>
+----
++
+NOTE: the `--dev` flag activates the developer mode.
 
 . Start making changes in the _Camel_ route. 
 +

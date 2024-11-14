@@ -70,7 +70,7 @@ Follow the link to the article to run the lab you're interested in.
 
 |            Lab Name             | Preview in GitHub | Article | 
 |:--------------------------------|:-------:|:-----------------:|
-| Camel - Prototyping to OpenShift             | [preview](docs/labs/camelk/walkthrough.adoc) | [link](https://developers.redhat.com/articles/2023/03/09/try-camel-k-developer-sandbox)
+| Camel - Prototype and deploy on OpenShift             | [preview](docs/labs/camelk/walkthrough.adoc) | [link](https://developers.redhat.com/articles/2023/03/09/try-camel-k-developer-sandbox)
 | Camel Quarkus - Rest/Soap Demo  | [preview](docs/labs/camelq/walkthrough.adoc)| [link](https://developers.redhat.com/articles/2023/10/06/try-camel-quarkus-developer-sandbox-red-hat-openshift)
 | Camel Spring Boot - Simple Demo  | [preview](docs/labs/camelsb/walkthrough.adoc)| [link](https://developers.redhat.com/articles/2023/02/10/how-run-camel-spring-boot-red-hat-developer-sandbox)
 

@@ -36,7 +36,7 @@ ifdef::env-github[]
 endif::[]
 
 [id='lab-intro']
-= Camel - User Demo
+= Camel - Prototyping to OpenShift
 
 Use Camel's fast prototyping using low-code UI and commands to build your integration flows and deploy them on OpenShift.
 
@@ -213,7 +213,7 @@ Review the instructions above and ensure you run the `setup` script.
 
 [time=5]
 [id="base-route"]
-== Base Camel Route
+== Base Camel route
 {style-all}
 
 This section introduces you to _Camel JBang_. You will use it to create your base _Camel_ route and explore some of things you can during the development phase.
@@ -287,9 +287,8 @@ After Camel finishes the start up phase, you'll see a new trace every second, si
 2024-10-24 07:21:28.941  INFO ... : Hello Camel from route1
 2024-10-24 07:21:29.941  INFO ... : Hello Camel from route1
 ----
-+
-{empty} +
 
+{empty} +
 
 === Explore more Camel JBang features
 
@@ -318,7 +317,7 @@ NOTE: Make sure your browser uses plain `http://` (pass:[<s>https://</s>])
 
 Follow the actions illustrated below to open in a new browser tab:
 
-image::images/camel-jbang-console.png[][width=70%, align=center]
+image::images/camel-jbang-console.png[][width=50%, align=center]
 
 {blank}
 
@@ -326,11 +325,11 @@ You'll find a ton of information you can access. +
 Try for example:
 
 - pass:[<u style="color:blue">top</u>: Display the top routes]
-
++
 {blank}
-
++
 When refreshing the page after a few LLM interactions, it should show something similar to:
-
++
 ++++
 <pre style="background-color: white; color: black">
 Top Routes:
@@ -355,11 +354,11 @@ Top Routes:
 Another console option you can look at is:
 
 - pass:[<u style="color:blue">source</u>: Dump route source code]
-
++
 {blank}
-
++
 It will render the source code of your _Camel_ route in YAML DSL:
-
++
 ++++
 <pre style="background-color: white; color: black">
 Source:
@@ -426,9 +425,15 @@ This section shows you to prototype your project in fast iteration cycles. _Came
 
 To make the example interesting, the service you will create will operate as an adaptation layer, collecting data in XML format from a remote server and transforming it to JSON. This is a very typical use case where modern API façades serve data obtained from legacy systems.
 
+Here's again the sequence diagram illustrating the process you're about to create.
+
+image::images/seq-diagram.png[align="center", width=40%]
+
+{empty} +
+
 Follow the commands below:
 
-. If you haven't done so already, stop Camel with kbd:[Ctrl+c].
+. If you haven't done so yet, stop Camel with kbd:[Ctrl+c].
 
 . Run the integration in *'developer mode'*:
 +

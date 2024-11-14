@@ -1,10 +1,8 @@
-# Developer Sandbox Camel Labs
+# Apache Camel in the Developer Sandbox
 
 > [!NOTE]  
 > If this file is rendered in TEXT mode in VS Code, click the preview button. \
 > (upper-right corner, has a `📖+🔍` symbol)
-
-# Apache Camel in the Developer Sandbox
 
 Gain familiarity with *Apache Camel* by getting hands-on with easy exercises in the Developer Sandbox.
 
@@ -28,9 +26,10 @@ To launch this tutorial, follow these simple steps:
     ![](docs/labs/camel/images/tutorial-open.png)
     *Mouse actions in VS Code to open the tutorial.*
 
+<br/>
+
 3. From your new tab, select one of the available tutorials to get started:
-    ![](docs/labs/camel/images/tutorial-tiles.png)
-    *Mouse actions in VS Code to open the tutorial.*
+    <img src="docs/labs/camel/images/tutorial-tiles.png" style="width:50%; height:auto;">
 
 <br/>
 

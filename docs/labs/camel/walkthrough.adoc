@@ -36,7 +36,7 @@ ifdef::env-github[]
 endif::[]
 
 [id='lab-intro']
-= Camel - Prototyping to OpenShift
+= Camel - Prototype and deploy on OpenShift
 
 Use Camel's fast prototyping using low-code UI and commands to build your integration flows and deploy them on OpenShift.
 

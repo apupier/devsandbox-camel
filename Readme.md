@@ -29,7 +29,7 @@ To launch this tutorial, follow these simple steps:
 <br/>
 
 3. From your new tab, select one of the available tutorials to get started:
-    <img src="docs/labs/camel/images/tutorial-tiles.png" style="width:50%; height:auto;">
+    <img src="docs/labs/camel/images/tutorial-tiles.png" style="width:70%; height:auto;">
 
 <br/>
 

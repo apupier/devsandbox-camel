@@ -149,7 +149,7 @@ WARNING: It's been reported that these key-combos not always work. Your machine 
 
 . If the paste action fails and you see _DevSpaces_ showing the following notification:
 +
-image::images/clipboard-notification.png[width=50%]
+image::images/clipboard-notification.png[width=30%]
 +
 {blank}
 +

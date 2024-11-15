@@ -147,6 +147,31 @@ echo "this is a copy/paste test"<br>
 WARNING: It's been reported that these key-combos not always work. Your machine may not respond to the above descriptions. Please try other key or mouse click alternatives, for example, right-click, or middle-click.
 --
 
+. If the paste action fails and you see _DevSpaces_ showing the following notification:
++
+image::images/clipboard-notification.png[width=50%]
++
+{blank}
++
+Find in your web browser's settings where to enable clipboard permissions. The image below shows how to enable them using _Chrome_:
++
+image::images/clipboard-settings.png[width=100%]
+
+// +
+// [TIP]
+// ====
+// If the paste action fails and you see DevSpaces showing the following notification:
+
+// image::images/clipboard-notification.png[width=50%]
+
+// {blank}
+
+// Find in your web browser's settings where to enable clipboard permissions. The image below shows how to enable them using _Chrome_:
+
+// image::images/clipboard-settings.png[width=100%]
+
+// ====
+
 {empty} +
 
 === Prepare your working folder

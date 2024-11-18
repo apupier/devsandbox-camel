@@ -27,7 +27,7 @@
 :style-all: pass:a[<style>{style-kbd}{style-preview}</style>]
 // :style-all: pass:a[<style>{style-kbd}{style-preview}{style-indent}</style>]
 
-:article-url: https://developers.redhat.com/articles/2023/03/09/try-camel-k-developer-sandbox
+:article-url: https://developers.redhat.com/articles/2024/11/15/try-apache-camel-concept-deployment-openshift
 :ai-basics-article-url: https://developers.redhat.com/articles/2024/10/04/tutorial-tool-your-llm-apache-camel-openshift
 // URLs
 :codeready-url: http://codeready-che.{openshift-app-host}/
@@ -44,8 +44,8 @@ Use Camel's fast prototyping using low-code UI and commands to build your integr
 
 This hands-on lab is based on the following blog article in Red Hat Developers:
 
-* PENDING URL
-// * link:{article-url}[window="_blank", , id="rhd-source-article"]
+// * PENDING URL
+* link:{article-url}[window="_blank", , id="rhd-source-article"]
 
 {empty} +
 

@@ -52,7 +52,7 @@ Try following the steps below to delete the failed workspace and restart.
 
 After the actions above, retry provisioning your lab. \
 Jump back to:
- - [Get started with the tutorial](#get-started-with-the-tutorial)
+ - [Get started with the tutorial](#get-started-with-the-tutorials)
 
 <br/>
 

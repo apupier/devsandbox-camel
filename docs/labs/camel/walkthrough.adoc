@@ -70,9 +70,9 @@ If you haven't used _Apache Camel_ before, or haven't played with recent version
 
 To briefly introduce the set of tools you're about to use, here's a list of the components that will help you along the way:
 
-- *Dev Spaces / VSCode*: the IDE you'll be using to create the _Camel_ processes.
+- *Dev Spaces / VS Code*: the IDE you'll be using to create the _Camel_ processes.
 - *Apache Camel*: the integration framework you'll use packed with Enterprise Integration Patterns and Components (connectors).
-- *Kaoto*: visual editor for _Apache Camel_ to create your _Camel_ routes and processes in VS_Code.
+- *Kaoto*: visual editor for _Apache Camel_ to create your _Camel_ routes and processes in VS Code.
 - *Camel JBang*: _Camel_ CLI (command line interface) designed to boost prototyping and accelerate your work to create, test and deploy your applications.
 - *Quarkus*: The runtime used by _Camel_ to deploy your integration processes on _OpenShift_
 - *OpenShift*: _Kubernetes_ environment where you will deploy your _Camel_ project.
